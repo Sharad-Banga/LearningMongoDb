@@ -1,6 +1,6 @@
 
 import mongoose, { model } from 'mongoose';
-
+const { ObjectId } = mongoose.Types;
 const Schema = mongoose.Schema;
 
 //we have two collection , user and todo
@@ -25,7 +25,9 @@ const todo = new Schema({
 const UserModel = mongoose.model('users',User);
 const TodoModel = mongoose.model('todos',todo);
 
-model.exports = {
-  UserModel : UserModel,
-  TodoModel : TodoModel
-}
+// model.exports = {
+//   UserModel : UserModel,
+//   TodoModel : TodoModel
+// }
+
+export { UserModel, TodoModel };
