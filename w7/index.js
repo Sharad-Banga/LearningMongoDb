@@ -35,7 +35,7 @@ app.post('/signin',(req,res)=>{
   })
 
   if(user){
-    const token = "";
+    const token = jwt.sign({id :user._id} ,JWT_SECRET);
     res.json({
       token : token
     })
