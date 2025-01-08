@@ -39,6 +39,7 @@ app.post('/signin',async (req,res)=>{
   console.log(user);
   
 
+
   if(user){
     const token = jwt.sign({id :user._id.toString()} ,JWT_SECRET);
     res.json({
@@ -79,6 +80,7 @@ app.post('/todo',auth,(req,res)=>{
     userId : userId
   })
 })
+
 
 
 app.post('/todos',auth,(req,res)=>{
