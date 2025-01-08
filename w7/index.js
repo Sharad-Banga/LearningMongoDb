@@ -40,7 +40,7 @@ app.post('/signin',async (req,res)=>{
   
 
   if(user){
-    const token = jwt.sign({id :user._id} ,JWT_SECRET);
+    const token = jwt.sign({id :user._id.toString()} ,JWT_SECRET);
     res.json({
       token : token
     })
@@ -53,13 +53,35 @@ app.post('/signin',async (req,res)=>{
 
 })
 
+function auth(req,res,next){
 
-app.post('/todo',(req,res)=>{
+  const token = req.headers.token;
+  console.log("+++++++++++++++++++++++++++++", token);
+  const userdetail = jwt.verify(token , JWT_SECRET);
+  console.log("+++++++++++++++++++++++++++++", userdetail);
   
+  if(userdetail){
+    req.userId = userdetail.id;
+    next();
+  }
+  else{
+    res.status(403).json({
+      message : "Incorrect credentials"
+    })
+  }
+}
+
+
+app.post('/todo',auth,(req,res)=>{
+  const userId = req.userId;
+
+  res.json({
+    userId : userId
+  })
 })
 
 
-app.post('/todos',(req,res)=>{
+app.post('/todos',auth,(req,res)=>{
   
 })
 
